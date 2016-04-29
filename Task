@@ -1,0 +1,80 @@
+/*
+Muhammad Nouman Ahmad
+Reg 5265
+BSCS-3B
+ */
+package lab;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+/**
+ *
+ * @author mnouman.bscs13seecs
+ */
+public class Lab {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) throws FileNotFoundException, IOException {
+        // TODO code application logic here
+        String vars = "";
+        int[] vals = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        FileInputStream fstream = new FileInputStream("C:\\Users\\mnouman.bscs13seecs\\Documents\\NetBeansProjects\\Lab\\src\\lab\\file.txt");
+        BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
+        String strLine;
+        while ((strLine = br.readLine()) != null) {
+                String[] arr = strLine.split(" ");
+                {
+                    int i = 0;
+                // for let
+                    //System.out.println("current tota  " + arr[i ]);
+                    if (arr[i].equals("Let")) {
+                        //  System.out.println("hi  " + arr[i +1]+"  actual srog "+x);
+                        if (vars.indexOf(arr[i + 1]) == -1) {
+                            vars = vars + arr[i + 1];
+                        }
+                        if (arr[i + 2].equals("=")) {
+                            for (int t = 0; t < vars.length(); t++) {
+                                if (vars.charAt(t) == arr[i + 1].charAt(0)) {
+                                    vals[t] = vals[t] + Integer.parseInt(arr[i + 3]);
+                                }
+                            }
+                        }
+
+                    } //for Print
+                    else if (arr[i].equals("print")) {
+                        //System.out.println("Got print");
+                        for (int t = 0; t < vars.length(); t++) {
+                            if (vars.charAt(t) == arr[i + 1].charAt(0)) {
+                                if (strLine.length() == 7) {
+                                    System.out.println(vals[t]+"    "+strLine);
+                                } else {
+                                    System.out.println(vals[t] + vals[t + 1]+"   "+strLine);
+                                }
+                            }
+                        }
+                    } // for addition
+                    else {
+                        //System.out.println("some other one " + x + "   " + vars);
+                        for (int t = 0; t < vars.length(); t++) {
+
+                            if (vars.charAt(t) == arr[i].charAt(0) && arr[i].charAt(0) == arr[2].charAt(0)) {
+                                vals[t] = vals[t] + Integer.parseInt(arr[4]);
+                            } else if (vars.charAt(t) == arr[i].charAt(0) && arr[2].charAt(0) == vars.charAt(1)) {
+              //                  System.out.println("in other one ");
+                                vals[t] = vals[t] + vals[t + 1] + Integer.parseInt(arr[4]);
+                            }
+                        }
+                    }
+                }
+                //System.out.println(x+"   new string");
+            }
+            //System.out.println(vals[0] + "   " + vals[1]);
+        }
+
+    }
